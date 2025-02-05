@@ -8,6 +8,7 @@ const cardList = document.querySelector('.places__list');
 function createCard(cardData, toDeleteCard) {
     const cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
     cardItem.querySelector('.card__image').src = cardData.link;
+    cardItem.querySelector('.card__image').alt = cardData.name;
     cardItem.querySelector('.card__title').textContent = cardData.name;
     cardItem.querySelector('.card__delete-button').addEventListener('click', toDeleteCard);
     return cardItem;
@@ -15,7 +16,7 @@ function createCard(cardData, toDeleteCard) {
 
 // @todo: Функция удаления карточки
 function toDeleteCard (event) {
-    event.target.parentElement.remove(); // получаем ссылку на родительский элемент кнопки удаления (карточку) и удаляем выбранный класс
+    event.target.closest('.card').remove(); // получаем ссылку на ближайшую к кнопке удаления карточку и удаляем выбранный класс
 }
 
 // @todo: Функция добавления карточки
