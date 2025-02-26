@@ -1,3 +1,4 @@
+// функция закрытия модального окна по Esc
 const closeModalEscape = (event) => {
     if (event.key === 'Escape') {
         const popup = document.querySelector ('.popup_is-opened');
@@ -5,27 +6,21 @@ const closeModalEscape = (event) => {
     }
 }
 
+// функция открытия модального окна
 export const openModal = (popup) => {
     popup.classList.add('popup_is-animated');
     popup.classList.add('popup_is-opened');
     document.addEventListener('keydown', closeModalEscape);
 }
 
-export const openImageModal = (popup, cardImageSrc, cardImageAlt) => {
-    const popupImage = popup.querySelector('.popup__image');
-    const popupCaption = popup.querySelector('.popup__caption');
-    popupImage.src = cardImageSrc;
-    popupImage.alt = cardImageAlt;
-    popupCaption.textContent = cardImageAlt;
-    openModal (popup);
-}
-
+// функция закрытия модального окна
 export const closeModal = (popup) => {
     popup.classList.add('popup_is-animated');
     popup.classList.remove('popup_is-opened');
     document.removeEventListener('keydown', closeModalEscape);
 }
 
+// функция добавления слушателя для закрытия модального окна
 export const addCloseListener = (popup) => {
     const closeCross = popup.querySelector('.popup__close');
     closeCross.addEventListener('click', () => {
@@ -37,11 +32,4 @@ export const addCloseListener = (popup) => {
             closeModal(popup);
         }
     });
-}
-
-export const setInitialEditForm = (editFormName, editFormDescription) => {
-    const profileName = document.querySelector('.profile__title');
-    const profileDescription = document.querySelector('.profile__description');
-    editFormName.value = profileName.textContent;
-    editFormDescription.value = profileDescription.textContent;
 }
