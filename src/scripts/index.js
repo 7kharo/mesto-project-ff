@@ -6,7 +6,8 @@ import {initialCards} from './cards.js';
 
 //Импорт функций
 import {createCard, toDeleteCard, toLikeCard} from './card.js';
-import {openModal, closeModal, addCloseListener} from './modal.js'
+import {openModal, closeModal, addCloseListener} from './modal.js';
+import {enableValidation} from './validation.js';
 
 // Установка фонового изображения
 import avatar from '../images/avatar.jpg';
