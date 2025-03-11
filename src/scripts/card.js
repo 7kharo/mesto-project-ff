@@ -36,32 +36,23 @@ export function createCard(cardData, toDeleteCard, toLikeCard, cardTemplate, ope
         'cardItem': cardItem
     };
 }
-  
+
 // функция лайка карточки
 export function toLikeCard (event) {
     const cardLikeButton = event.target;
     const cardLiked = cardLikeButton.closest('.card');
     const cardLikedId = cardLiked.dataset.cardId;
     const cardLikeCounter = cardLiked.querySelector('.likes-counter');
-    if (cardLikeButton.classList.contains('card__like-button_is-active')){
-        unlikeCard (cardLikedId)
-            .then ((updatedLikedCard) => {
-                cardLikeButton.classList.remove('card__like-button_is-active');
-                cardLikeCounter.textContent = updatedLikedCard.likes.length;
+    const isLiked = cardLikeButton.classList.contains('card__like-button_is-active');
+    const likeMethod = isLiked ? unlikeCard : likeCard;
+    likeMethod(cardLikedId) 
+            .then ((updatedLikedCard) => { 
+                cardLikeButton.classList.toggle('card__like-button_is-active'); 
+                cardLikeCounter.textContent = updatedLikedCard.likes.length; 
+            }) 
+            .catch ((err) => { 
+                console.error (`Ошибка при ${isLiked ? "снятии" : "постановке"} лайка:`, err); 
             })
-            .catch ((err) => {
-                console.error ('Ошибка при постановке лайка:', err);
-            })
-    } else {
-        likeCard (cardLikedId)
-            .then ((updatedLikedCard) => {
-                cardLikeButton.classList.add('card__like-button_is-active');
-                cardLikeCounter.textContent = updatedLikedCard.likes.length;
-            })
-            .catch ((err) => {
-                console.error ('Ошибка при постановке лайка:', err);
-            })
-    }
 }
   
 // функция удаления карточки
